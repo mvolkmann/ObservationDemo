@@ -58,7 +58,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                TextField("description", text: $description)
+                TextField("todo description", text: $description)
                     .textFieldStyle(.roundedBorder)
                 Button("Add") {
                     vm.addTodo(Todo(description))
@@ -99,6 +99,7 @@ struct ContentView: View {
                     }
                 }
             }
+            .listStyle(.plain)
         }
         .padding()
     }
