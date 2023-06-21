@@ -37,8 +37,8 @@ class ViewModel {
     }
 
     func toggleTodo(_ todo: Todo) {
-        // todo.done.toggle()
-        if let index = todos.firstIndex(where: { $0 == todo }) {
+        // todo.done.toggle() // This doesn't work.
+        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
             todos[index] = Todo(todo.description, done: !todo.done)
         }
     }
@@ -47,6 +47,7 @@ class ViewModel {
 struct ContentView: View {
     // The @Binding property wrapper allows a view to mutate data
     // that is owned by another view, typically its parent view.
+
     // The @Bindable marks an instance of a class
     // to which the @Observable macro is applied.
     // It can be used to create a two-way binding
@@ -74,6 +75,7 @@ struct ContentView: View {
                         // TODO: Is there a way to bind to the done property
                         // TODO: of a specific todo?
                         // Toggle("", isOn: todo.done)
+
                         Button {
                             vm.toggleTodo(todo)
                         } label: {
