@@ -1,28 +1,4 @@
-import Observation
 import SwiftUI
-
-@Observable
-class ViewModel {
-    var todos: [Todo] = [
-        Todo("Cut grass"),
-        Todo("Buy Milk", done: true)
-    ]
-
-    func addTodo(_ todo: Todo) {
-        todos.append(todo)
-    }
-
-    func deleteTodo(_ todo: Todo) {
-        todos.removeAll { $0 == todo }
-    }
-
-    func toggleTodo(_ todo: Todo) {
-        // todo.done.toggle() // This doesn't work.
-        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-            todos[index] = Todo(todo.description, done: !todo.done)
-        }
-    }
-}
 
 struct ContentView: View {
     // The @Binding property wrapper allows a view to mutate data
@@ -32,8 +8,7 @@ struct ContentView: View {
     // to which the @Observable macro is applied.
     // It can be used to create a two-way binding
 
-    private let vm = ViewModel()
-
+    @Environment(ViewModel.self) private var vm
     @State private var description = ""
     @State private var isHappy = false
 

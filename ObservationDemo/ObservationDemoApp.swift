@@ -5,7 +5,7 @@ struct ObservationDemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            // DonutsView()
+                .environment(ViewModel())
         }
     }
 }
