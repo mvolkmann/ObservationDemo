@@ -15,7 +15,8 @@ struct TodoRow: View {
             } label: {
                 Image(systemName: "trash")
             }
-            // Without this, tapping either button triggers both!
+            // Without this, tapping any button triggers
+            // all buttons in the same HStack!
             .buttonStyle(.borderless)
         }
     }

@@ -1,7 +1,8 @@
 import Foundation // for UUID
 import Observation
 
-// This needs to be a class instead of a struct to apply @Observable.
+// This needs to be a class instead of a struct
+// in order to apply the @Observable macro.
 @Observable
 class Todo: Equatable, Identifiable {
     var description = ""
