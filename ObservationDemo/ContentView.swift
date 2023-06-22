@@ -1,26 +1,6 @@
 import Observation
 import SwiftUI
 
-extension Sequence {
-    // This returns a new sequenced that is sorted based on a key path.
-    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
-        return sorted { a, b in
-            a[keyPath: keyPath] < b[keyPath: keyPath]
-        }
-    }
-}
-
-struct Todo: Equatable, Identifiable {
-    var description: String
-    var done: Bool
-    let id: UUID = .init()
-
-    init(_ description: String, done: Bool = false) {
-        self.description = description
-        self.done = done
-    }
-}
-
 @Observable
 class ViewModel {
     var todos: [Todo] = [
@@ -59,8 +39,12 @@ struct ContentView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            Checkbox(label: "Happy?", isOn: $isHappy)
+            Text(isHappy ? "Good for you!" : "Maybe tomorrow.")
+
             HStack {
                 TextField("todo description", text: $description)
+                    .textInputAutocapitalization(.never)
                     .textFieldStyle(.roundedBorder)
                 Button("Add") {
                     vm.addTodo(Todo(description))
@@ -70,10 +54,9 @@ struct ContentView: View {
                 .disabled(description.isEmpty)
             }
 
-            Checkbox(label: "Happy?", isOn: $isHappy)
-            Text(isHappy ? "Good for you!" : "Maybe tomorrow.")
-
             List {
+                // This `sorted` method is defined in
+                // Extensions/SequenceExtension.swift.
                 ForEach(vm.todos.sorted(by: \.description)) { todo in
                     HStack {
                         // TODO: Is there a way to bind to the done property
@@ -83,11 +66,14 @@ struct ContentView: View {
                         Button {
                             vm.toggleTodo(todo)
                         } label: {
-                            let name = todo.done ? "checkmark.square" : "square"
+                            let name = todo
+                                .done ? "checkmark.square" : "square"
                             Image(systemName: name)
                         }
                         // Without this, tapping either button triggers both!
                         .buttonStyle(.borderless)
+
+                        // Checkbox(label: todo.description, isOn: todo.done)
 
                         Text(todo.description)
                             .foregroundStyle(todo.done ? .gray : .black)
