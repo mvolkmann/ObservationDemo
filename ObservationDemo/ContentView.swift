@@ -24,9 +24,9 @@ struct ContentView: View {
             }
 
             List {
-                // This `sorted` method is defined in
+                // The `sortedInsensitive` method is defined in
                 // Extensions/SequenceExtension.swift.
-                ForEach(vm.todos.sorted(by: \.description)) { todo in
+                ForEach(vm.todos.sortedInsensitive(by: \.description)) { todo in
                     TodoRow(todo: todo)
                 }
             }
