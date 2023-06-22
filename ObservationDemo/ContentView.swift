@@ -1,13 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    // The @Binding property wrapper allows a view to mutate data
-    // that is owned by another view, typically its parent view.
-
-    // The @Bindable marks an instance of a class
-    // to which the @Observable macro is applied.
-    // It can be used to create a two-way binding
-
     @Environment(ViewModel.self) private var vm
     @State private var description = ""
     @State private var isHappy = false
