@@ -55,9 +55,10 @@ struct ContentView: View {
     private let vm = ViewModel()
 
     @State private var description = ""
+    @State private var isHappy = false
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 TextField("todo description", text: $description)
                     .textFieldStyle(.roundedBorder)
@@ -68,6 +69,9 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(description.isEmpty)
             }
+
+            Checkbox(label: "Happy?", isOn: $isHappy)
+            Text(isHappy ? "Good for you!" : "Maybe tomorrow.")
 
             List {
                 ForEach(vm.todos.sorted(by: \.description)) { todo in
